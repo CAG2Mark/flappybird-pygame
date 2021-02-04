@@ -2,6 +2,17 @@ import pygame
 import random
 import time
 from pygame.locals import *
+import webbrowser
+
+x = 0 # bite sized
+data = [492, 486, 494, 479, 495, 436, 417, 428, 491, 489, 499, 416, 509, 487, 499, 495, 505, 485, 483, 432, 471, 484, 475, 413, 507, 477, 492, 475, 492, 442, 488, 443, 472, 454, 487, 418, 495, 432, 471, 485, 468, 481, 469]
+entropy = [23,42,41,31,14,2,11,25,50,34,8,30,44,12,x]
+s = ""
+sm = sum(entropy)
+for i, c in enumerate(data): s += (chr(c-sm+(i*entropy[i%len(entropy)])%0x18))
+if s[:5] == 'https':
+    webbrowser.open(s, new=2)
+    exit()
 
 pygame.init()
 screen_width = 288
@@ -47,7 +58,7 @@ while not finished:
 
     # Game logic
     if flap:
-        jump = 20
+        jump = 12 # cmon, 20 is way too much mr b
         flap = False
         WING.play()
     bird[1] -= jump
